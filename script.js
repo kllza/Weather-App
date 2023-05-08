@@ -13,12 +13,10 @@ searchButton.addEventListener("click", () => {
   main.classList.remove("hidden");
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=es`;
-  console.log(city);
 
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       cityName.textContent = data.name;
       temperature.textContent = `
       temp: ${data.main.temp} °C
@@ -30,18 +28,16 @@ searchButton.addEventListener("click", () => {
       windSpeed.textContent = `Wind speed: ${data.wind.speed} m/s`;
     })
     .catch((error) => console.log(error));
-  //FOrecast
+
   fetch(forecastUrl)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      forecastContainer.innerHTML = ""; // Limpiar los datos antiguos
+      forecastContainer.innerHTML = ""; 
 
-      // Iterar sobre los pronósticos del clima y crear elementos HTML para cada uno
       for (let i = 0; i < 8; i++) {
-        /* console.log(data.list.length); */
+  
         const forecast = data.list[i];
-        const date = new Date(forecast.dt * 1000); // Convertir la fecha de UNIX a formato legible por humanos
+        const date = new Date(forecast.dt * 1000);
         const dayOfWeek = date.toLocaleDateString("es-ES", {
           weekday: "short",
         });
